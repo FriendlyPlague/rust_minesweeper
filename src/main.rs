@@ -3,7 +3,7 @@ use macroquad::{window::{self, screen_width, screen_height},shapes,color, input,
 
 const GAME_WIDTH: usize = 25;
 const GAME_HEIGHT: usize = 25;
-const NUM_BOMBS:u32 = 110;
+const NUM_BOMBS:u32 = 100;
 
 // (isbomb, flagged)
 type Tile = (bool,bool);

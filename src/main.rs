@@ -3,7 +3,7 @@ use macroquad::{window::{self, screen_width, screen_height},shapes,color, input,
 
 const GAME_WIDTH: usize = 25;
 const GAME_HEIGHT: usize = 25;
-const NUM_BOMBS:u32 = 100;
+const NUM_BOMBS:u32 = 105;
 
 // (isbomb, flagged)
 type Tile = (bool,bool);
@@ -59,7 +59,7 @@ async fn main() {
             else{(999999,999999)}
         };
         if input::is_mouse_button_pressed(input::MouseButton::Left) {
-            if mpg.0 < GAME_WIDTH && mpg.1 < GAME_HEIGHT && mpg.0 != 999999 && !game_over {
+            if mpg.0 < GAME_WIDTH && mpg.1 < GAME_HEIGHT && !game_over {
                 if !game_started {
                     let x = (mpg.0) as i32 -1;
                     let y = (mpg.1) as i32 -1;
@@ -224,8 +224,7 @@ fn bfs_destruction(x: i32, y: i32, board: &mut [Option<Tile>]) {
     if surrounding_bombs(x, y, board) != 0 {
         return;
     }
-    let surrounding_nodes = |ax: i32, ay: i32| {VecDeque::from([(ax-1,ay),(ax-1,ay-1),(ax-1,ay+1),(ax+1,ay),
-                                                                                                (ax+1,ay-1),(ax+1,ay+1),(ax,ay-1),(ax,ay+1)])};
+    let surrounding_nodes = |ax: i32, ay: i32| {VecDeque::from([(ax+1,ay),(ax-1,ay),(ax,ay+1), (ax, ay-1)])};
     let mut nodes = VecDeque::from([(x,y)]);
     let mut visited: HashSet<(i32,i32)> = HashSet::new();
     while !nodes.is_empty() {
